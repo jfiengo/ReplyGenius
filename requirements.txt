@@ -31,6 +31,7 @@ langchain-text-splitters==0.3.8
 langsmith==0.3.32
 MarkupSafe==3.0.2
 multidict==6.4.3
+numpy==2.2.5
 orjson==3.10.16
 packaging==24.2
 propcache==0.3.1
