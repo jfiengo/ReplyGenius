@@ -1,5 +1,5 @@
 # database.py
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 import os
@@ -47,5 +47,5 @@ def get_session():
 
 def setup_pgvector(session):
     """Ensure pgvector extension is enabled"""
-    session.execute("CREATE EXTENSION IF NOT EXISTS vector")
+    session.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
     session.commit()
