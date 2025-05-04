@@ -8,6 +8,7 @@ from database import init_db, setup_pgvector, get_session
 from routes.sms import handle_sms_webhook
 from routes.business import handle_provision_number, handle_register_business
 from routes.message import handle_get_message_history
+from routes.context import handle_upload_context
 
 # Configure logging
 logging.basicConfig(
@@ -50,6 +51,10 @@ def register_business():
 @app.route('/api/message-history/<phone_number>', methods=['GET'])
 def get_message_history(phone_number):
     return handle_get_message_history(phone_number)
+
+@app.route('/api/upload-context', methods=['POST'])
+def upload_context():
+    return handle_upload_context()
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

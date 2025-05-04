@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 import logging
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_anthropic import ChatAnthropic
+from sentence_transformers import SentenceTransformer
 from typing import List, Dict, Any
+import httpx
 
 # Load environment variables
 load_dotenv()
@@ -24,10 +26,20 @@ class AnthropicClient:
             model="claude-3-haiku-20240307"  # Using Haiku for cost-effective testing
         )
         
+        # Initialize sentence transformer for embeddings
+        self.embeddings = SentenceTransformer('all-MiniLM-L6-v2')
+        
         # Initialize the chat prompt template
         self.prompt_template = ChatPromptTemplate.from_messages([
-            ("system", """You are a helpful AI assistant. Your task is to respond to messages in a friendly, professional, and concise manner.
-            You are communicating via SMS, so keep your responses brief and to the point while maintaining a helpful and friendly tone."""),
+            ("system", """You are a helpful AI assistant representing a business. Your task is to respond to customer messages in a friendly, professional, and concise manner.
+            
+            You are communicating via SMS, so keep your responses brief and to the point while maintaining a helpful and friendly tone.
+            
+            Use the provided business context to inform your responses. If the context contains relevant information, incorporate it naturally into your response.
+            If the context doesn't contain relevant information, respond based on your general knowledge while maintaining a professional business tone.
+            
+            Business Context:
+            {business_context}"""),
             MessagesPlaceholder(variable_name="chat_history"),
             ("human", "{input}")
         ])
@@ -51,13 +63,14 @@ class AnthropicClient:
             })
         return formatted_messages
 
-    def generate_response(self, message: str, message_history: List[Dict[str, Any]] = None) -> str:
+    def generate_response(self, message: str, message_history: List[Dict[str, Any]] = None, business_context: str = "") -> str:
         """
         Generate a response using Claude API
         
         Args:
             message (str): The incoming message to respond to
             message_history (List[Dict[str, Any]], optional): Message history in the format from get_message_history
+            business_context (str, optional): Relevant business context to include in the response
             
         Returns:
             str: The generated response
@@ -71,7 +84,8 @@ class AnthropicClient:
             # Format the prompt using the template
             formatted_prompt = self.prompt_template.format_messages(
                 chat_history=chat_history,
-                input=message
+                input=message,
+                business_context=business_context
             )
             
             # Get response from Langchain's Anthropic client
@@ -82,4 +96,14 @@ class AnthropicClient:
             
         except Exception as e:
             logger.error(f"Error generating response from Claude: {e}")
-            return "I apologize, but I'm having trouble generating a response at the moment. Please try again later." 
+            return "I apologize, but I'm having trouble generating a response at the moment. Please try again later."
+
+    def get_embedding(self, text: str) -> List[float]:
+        """Get embedding for a text using sentence-transformers"""
+        try:
+            # Get embedding and convert to list
+            embedding = self.embeddings.encode(text)
+            return embedding.tolist()
+        except Exception as e:
+            logger.error(f"Error getting embedding: {e}")
+            raise 
