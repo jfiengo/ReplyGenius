@@ -16,7 +16,7 @@ const Home = () => {
       <header className="hero-section">
         <div className="hero-content">
           <h1>ReplyGenius</h1>
-          <h2>The SMS AI platform built for business</h2>
+          <h2>The AI platform built for business</h2>
           <p>ReplyGenius enables businesses to automatically respond to customer inquiries with AI that understands your services and products.</p>
           <div className="hero-buttons">
             <Link to="/signup" className="btn btn-primary">Get Started</Link>
@@ -35,6 +35,11 @@ const Home = () => {
               <p>We provision a dedicated business phone number or connect to your existing one.</p>
             </div>
             <div className="feature-card">
+              <div className="feature-icon">📧</div>
+              <h3>Connect Your Email</h3>
+              <p>We provision a dedicated business email or connect to your existing one.</p>
+            </div>
+            <div className="feature-card">
               <div className="feature-icon">📄</div>
               <h3>Upload Business Context</h3>
               <p>Add documents, FAQs, and service details to train your AI assistant.</p>
@@ -43,11 +48,6 @@ const Home = () => {
               <div className="feature-icon">🤖</div>
               <h3>AI Responds to Customers</h3>
               <p>Our AI handles customer inquiries instantly, 24/7, sounding natural and helpful.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">📊</div>
-              <h3>Monitor & Improve</h3>
-              <p>Track performance and fine-tune responses through the dashboard.</p>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@ const Home = () => {
       <section className="testimonial-section">
         <div className="content-container">
           <div className="testimonial">
-            <p className="quote">"ReplyGenius has transformed how we handle customer inquiries. Our response time went from hours to seconds, and our customers love the instant support."</p>
+            <p className="quote">ReplyGenius has transformed how we handle customer inquiries. Our response time went from hours to seconds, and our customers love the instant support.</p>
             <div className="author">
               <p className="name">Michael Rodriguez</p>
               <p className="title">Operations Director, GreenCut Lawn Services</p>
@@ -124,7 +124,7 @@ const Home = () => {
       <section className="cta-section">
         <div className="content-container">
           <h2>Ready to automate your customer communications?</h2>
-          <p>Get started with ReplyGenius today and experience the power of AI-driven SMS responses.</p>
+          <p>Get started with ReplyGenius today and experience the power of AI-driven responses and lead generation.</p>
           <div className="cta-buttons">
             <Link to="/signup" className="btn btn-primary">Sign Up Now</Link>
             <Link to="/pricing" className="btn btn-secondary">View Pricing</Link>
