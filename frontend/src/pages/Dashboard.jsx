@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Dashboard.module.css';
+import trashIcon from '../assets/trash.png';
 // Make sure you have Bootstrap installed:
 // npm install bootstrap
 // And imported in your main index.js or App.js file:
@@ -73,7 +74,7 @@ const Dashboard = () => {
                 <h1 className="h3 m-0 text-white fw-bold">ReplyGenius</h1>
               </div>
               <div className="col-auto">
-                <Link to="/profile" className="btn btn-outline-light text-white d-flex align-items-center">
+                <Link to="/profile" className={`btn btn-outline-light text-white d-flex align-items-center ${styles.profileBtn}`}>
                   <div className="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center me-2" style={{ width: '36px', height: '36px' }}>
                     <span>JS</span>
                   </div>
@@ -204,12 +205,7 @@ const Dashboard = () => {
                               aria-label={`Delete ${file.name}`}
                               style={{ transition: 'opacity 0.2s ease' }}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                <line x1="10" y1="11" x2="10" y2="17"></line>
-                                <line x1="14" y1="11" x2="14" y2="17"></line>
-                              </svg>
+                              <img src={trashIcon} alt="Delete" style={{ width: 20, height: 20 }} />
                             </button>
                           </div>
                         ))}

@@ -11,62 +11,84 @@
   color: #fff;
 }
 
-/* Show delete button on hover */
+.profileBtn {
+  transition: all 0.2s ease;
+}
+
+.profileBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+/* Delete button styling */
+.delete-file-btn {
+  opacity: 0.5 !important;
+  transition: all 0.2s ease;
+}
+
+.delete-file-btn:hover {
+  opacity: 1 !important;
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  color: white !important;
+}
+
 .list-group-item:hover .delete-file-btn {
-    opacity: 1 !important;
-  }
-  
-  /* Enhance colors for primary elements to match ReplyGenius branding */
-  :root {
-    --bs-primary: #6366F1;
-    --bs-primary-rgb: 99, 102, 241;
-  }
-  
-  .bg-primary {
-    background-color: var(--bs-primary) !important;
-  }
-  
-  .text-primary {
-    color: var(--bs-primary) !important;
-  }
-  
-  .btn-primary {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
-  }
-  
-  .btn-primary:hover {
-    background-color: #4338CA;
-    border-color: #4338CA;
-  }
-  
-  .btn-outline-primary {
-    color: var(--bs-primary);
-    border-color: var(--bs-primary);
-  }
-  
-  .btn-outline-primary:hover {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
-  }
-  
-  /* Custom styles for file upload area */
-  .border-dashed {
-    border-style: dashed !important;
-  }
-  
-  .border-dashed:hover {
-    border-color: var(--bs-primary) !important;
-    background-color: rgba(var(--bs-primary-rgb), 0.05) !important;
-  }
-  
-  /* Truncate long text in conversations */
-  .text-truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .min-width-0 {
-    min-width: 0;
-  }
+  opacity: 0.5 !important;
+}
+
+/* Enhance colors for primary elements to match ReplyGenius branding */
+:root {
+  --bs-primary: #6366F1;
+  --bs-primary-rgb: 99, 102, 241;
+}
+
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+  background-color: #4338CA;
+  border-color: #4338CA;
+}
+
+.btn-outline-primary {
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+/* Custom styles for file upload area */
+.border-dashed {
+  border-style: dashed !important;
+}
+
+.border-dashed:hover {
+  border-color: var(--bs-primary) !important;
+  background-color: rgba(var(--bs-primary-rgb), 0.05) !important;
+}
+
+/* Truncate long text in conversations */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.min-width-0 {
+  min-width: 0;
+}
