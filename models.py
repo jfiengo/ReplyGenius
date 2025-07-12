@@ -38,8 +38,10 @@ class Business(Base):
     
     # Relationships
     phone_numbers = relationship("PhoneNumber", back_populates="business", cascade="all, delete-orphan")
+    email_addresses = relationship("EmailAddress", back_populates="business", cascade="all, delete-orphan")
     context_items = relationship("ContextItem", back_populates="business", cascade="all, delete-orphan")
     messages = relationship("Message", back_populates="business")
+    emails = relationship("Email", back_populates="business")
 
 
 class PhoneNumber(Base):
@@ -58,16 +60,36 @@ class PhoneNumber(Base):
     business = relationship("Business", back_populates="phone_numbers")
 
 
+class EmailAddress(Base):
+    __tablename__ = 'email_addresses'
+    
+    id = Column(Integer, primary_key=True)
+    business_id = Column(Integer, ForeignKey('businesses.id'), nullable=False)
+    email_address = Column(String(255), nullable=False, unique=True)
+    is_active = Column(Boolean, nullable=False, default=True)
+    provider = Column(String(50), nullable=False, default='gmail')
+    provider_id = Column(String(100))
+    credentials_file = Column(String(255))  # Path to credentials.json
+    token_file = Column(String(255))        # Path to token.json
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    business = relationship("Business", back_populates="email_addresses")
+
+
 class Customer(Base):
     __tablename__ = 'customers'
     
     id = Column(Integer, primary_key=True)
-    phone_number = Column(String(20), nullable=False, unique=True)
+    phone_number = Column(String(20), nullable=True, unique=True)
+    email_address = Column(String(255), nullable=True, unique=True)
     first_interaction_at = Column(DateTime(timezone=True), server_default=func.now())
     last_interaction_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     
     # Relationships
     messages = relationship("Message", back_populates="customer", cascade="all, delete-orphan")
+    emails = relationship("Email", back_populates="customer", cascade="all, delete-orphan")
 
 
 class Message(Base):
@@ -86,6 +108,26 @@ class Message(Base):
     # Relationships
     customer = relationship("Customer", back_populates="messages")
     business = relationship("Business", back_populates="messages")
+
+
+class Email(Base):
+    __tablename__ = 'emails'
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    business_id = Column(Integer, ForeignKey('businesses.id'), nullable=False)
+    direction = Column(String(10), nullable=False)  # 'inbound' or 'outbound'
+    subject = Column(String(500), nullable=False)
+    content = Column(Text, nullable=False)
+    message_id = Column(String(100))  # Gmail message ID
+    thread_id = Column(String(100))   # Gmail thread ID
+    status = Column(String(20), nullable=False, default='received')
+    sent_at = Column(DateTime(timezone=True), server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    # Relationships
+    customer = relationship("Customer", back_populates="emails")
+    business = relationship("Business", back_populates="emails")
 
 
 class ContextItem(Base):

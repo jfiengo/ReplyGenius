@@ -307,3 +307,7 @@ public
 *.css.map
 *.sass.map
 *.scss.map
+
+# Google Cloud
+tokens/
+credentials.json

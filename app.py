@@ -9,6 +9,7 @@ from routes.sms import handle_sms_webhook
 from routes.business import handle_provision_number, handle_register_business
 from routes.message import handle_get_message_history
 from routes.context import handle_upload_context
+from routes.email import handle_email_webhook, handle_register_email, start_email_monitoring
 
 # Configure logging
 logging.basicConfig(
@@ -56,5 +57,17 @@ def get_message_history(phone_number):
 def upload_context():
     return handle_upload_context()
 
+# Email routes
+@app.route('/email/webhook', methods=['POST'])
+def email_webhook():
+    return handle_email_webhook()
+
+@app.route('/api/register-email', methods=['POST'])
+def register_email():
+    return handle_register_email()
+
 if __name__ == '__main__':
+    # Start email monitoring in background
+    start_email_monitoring()
+    
     app.run(debug=True, host='0.0.0.0', port=5000)

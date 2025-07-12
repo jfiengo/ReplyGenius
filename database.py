@@ -34,7 +34,7 @@ SessionFactory = sessionmaker(bind=engine)
 db_session = scoped_session(SessionFactory)
 
 # Import models to ensure they're registered with the Base
-from models import Base, Business, PhoneNumber, Customer, Message, ContextItem
+from models import Base, Business, PhoneNumber, Customer, Message, ContextItem, EmailAddress, Email
 
 def init_db():
     """Initialize the database by creating all tables"""
