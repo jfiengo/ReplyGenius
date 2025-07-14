@@ -1,2 +1,2 @@
 # ReplyGenius
-Automatic customer interaction through text messaging.
+Automatic customer interaction through email.
